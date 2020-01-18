@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fibonacci_clock/colors.dart' as fibColors;
 import 'package:flutter/material.dart';
 import 'package:flutter_clock_helper/model.dart';
 import 'package:intl/intl.dart';
@@ -17,11 +18,12 @@ class _FibonacciClockState extends State<FibonacciClock> {
   DateTime _dateTime = DateTime.now();
   Timer _timer;
   List<int> _fibonacciSequence = [1, 1, 2, 3, 5];
-  Color box1AColor = Colors.white;
-  Color box1BColor = Colors.white;
-  Color box2Color = Colors.white;
-  Color box3Color = Colors.white;
-  Color box5Color = Colors.white;
+
+  List<Color> box1AGradientColors = fibColors.emptyGradientColors,
+      box1BGradientColors = fibColors.emptyGradientColors,
+      box2GradientColors = fibColors.emptyGradientColors,
+      box3GradientColors = fibColors.emptyGradientColors,
+      box5GradientColors = fibColors.emptyGradientColors;
 
   @override
   void initState() {
@@ -69,6 +71,10 @@ class _FibonacciClockState extends State<FibonacciClock> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.model.is24HourFormat) {
+      debugPrint('Hey Sorry! This clock only supports a 12 hour format');
+    }
+    debugPrint('rebuilt');
     return Container(
         child: Row(
       children: <Widget>[
@@ -82,17 +88,17 @@ class _FibonacciClockState extends State<FibonacciClock> {
                     children: <Widget>[
                       LightBox(
                         flex: 2,
-                        color: box2Color,
+                        gradientColors: box2GradientColors,
                       ),
                       Expanded(
                           flex: 1,
                           child: Column(
                             children: <Widget>[
                               LightBox(
-                                color: box1AColor,
+                                gradientColors: box1AGradientColors,
                               ),
                               LightBox(
-                                color: box1BColor,
+                                gradientColors: box1BGradientColors,
                               )
                             ],
                           ))
@@ -100,14 +106,14 @@ class _FibonacciClockState extends State<FibonacciClock> {
                   )),
               LightBox(
                 flex: 4,
-                color: box3Color,
+                gradientColors: box3GradientColors,
               )
             ],
           ),
         ),
         LightBox(
           flex: 3,
-          color: box5Color,
+          gradientColors: box5GradientColors,
         ),
       ],
     ));
@@ -129,10 +135,11 @@ class _FibonacciClockState extends State<FibonacciClock> {
     getColors(hrAddends, minAddends);
 
     if (hour == 00 || hour == 12) {
-      box1BColor = Colors.red;
+      box1BGradientColors = fibColors.redGradientColors;
+
       hour = 12;
     } else {
-      box1BColor = Colors.white;
+      box1BGradientColors = fibColors.emptyGradientColors;
     }
   }
 
@@ -156,43 +163,43 @@ class _FibonacciClockState extends State<FibonacciClock> {
 
   getColors(List<int> hrAddends, List<int> minAddends) {
     if (hrAddends.contains(5) && minAddends.contains(5)) {
-      box5Color = Colors.blue;
+      box5GradientColors = fibColors.blueGradientColors;
     } else if (hrAddends.contains(5)) {
-      box5Color = Colors.red;
+      box5GradientColors = fibColors.redGradientColors;
     } else if (minAddends.contains(5)) {
-      box5Color = Colors.green;
+      box5GradientColors = fibColors.greenGradientColors;
     } else {
-      box5Color = Colors.white;
+      box5GradientColors = fibColors.emptyGradientColors;
     }
 
     if (hrAddends.contains(3) && minAddends.contains(3)) {
-      box3Color = Colors.blue;
+      box3GradientColors = fibColors.blueGradientColors;
     } else if (hrAddends.contains(3)) {
-      box3Color = Colors.red;
+      box3GradientColors = fibColors.redGradientColors;
     } else if (minAddends.contains(3)) {
-      box3Color = Colors.green;
+      box3GradientColors = fibColors.greenGradientColors;
     } else {
-      box3Color = Colors.white;
+      box3GradientColors = fibColors.emptyGradientColors;
     }
 
     if (hrAddends.contains(2) && minAddends.contains(2)) {
-      box2Color = Colors.blue;
+      box2GradientColors = fibColors.blueGradientColors;
     } else if (hrAddends.contains(2)) {
-      box2Color = Colors.red;
+      box2GradientColors = fibColors.redGradientColors;
     } else if (minAddends.contains(2)) {
-      box2Color = Colors.green;
+      box2GradientColors = fibColors.greenGradientColors;
     } else {
-      box2Color = Colors.white;
+      box2GradientColors = fibColors.emptyGradientColors;
     }
 
     if (hrAddends.contains(1) && minAddends.contains(1)) {
-      box1AColor = Colors.blue;
+      box1AGradientColors = fibColors.blueGradientColors;
     } else if (hrAddends.contains(1)) {
-      box1AColor = Colors.red;
+      box1AGradientColors = fibColors.redGradientColors;
     } else if (minAddends.contains(1)) {
-      box1AColor = Colors.green;
+      box1AGradientColors = fibColors.greenGradientColors;
     } else {
-      box1AColor = Colors.white;
+      box1AGradientColors = fibColors.emptyGradientColors;
     }
   }
 }
@@ -201,9 +208,14 @@ class LightBox extends StatelessWidget {
   final Color color;
   final Widget child;
   final int flex;
+  final List<Color> gradientColors;
 
   const LightBox(
-      {Key key, this.color = Colors.white, this.flex = 1, this.child})
+      {Key key,
+      this.color = Colors.white,
+      this.flex = 1,
+      this.child,
+      this.gradientColors = const []})
       : super(key: key);
 
   @override
@@ -213,8 +225,17 @@ class LightBox extends StatelessWidget {
       child: child ??
           Container(
             decoration: BoxDecoration(
-              border: Border.all(width: 1.0),
+              border:
+                  Border.all(width: 1.0, color: Colors.black.withOpacity(0.3)),
               color: color,
+              gradient: gradientColors.length > 1
+                  ? RadialGradient(
+                      center: const Alignment(0.0, -0.0),
+                      radius: 1.0,
+                      colors: gradientColors,
+                      stops: <double>[0.0, 0.8, 1.0],
+                    )
+                  : null,
             ),
           ),
     );
