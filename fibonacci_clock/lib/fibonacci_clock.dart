@@ -16,6 +16,10 @@ class FibonacciClock extends StatefulWidget {
 
 class _FibonacciClockState extends State<FibonacciClock> {
   DateTime _dateTime = DateTime.now();
+  WeatherCondition _weatherCondition; //TODO Change from string
+  String _temperature = '';
+  String _condition = '';
+  String _location = '';
   Timer _timer;
   List<int> _fibonacciSequence = [1, 1, 2, 3, 5];
 
@@ -28,6 +32,8 @@ class _FibonacciClockState extends State<FibonacciClock> {
   @override
   void initState() {
     super.initState();
+    widget.model.addListener(_updateModel);
+
     _updateTime();
     _updateModel();
   }
@@ -65,7 +71,10 @@ class _FibonacciClockState extends State<FibonacciClock> {
 
   void _updateModel() {
     setState(() {
-      // Cause the clock to rebuild when the model changes.
+      _temperature = widget.model.temperatureString;
+      _condition = widget.model.weatherString;
+      _weatherCondition = widget.model.weatherCondition;
+      _location = widget.model.location;
     });
   }
 
@@ -74,7 +83,6 @@ class _FibonacciClockState extends State<FibonacciClock> {
     if (widget.model.is24HourFormat) {
       debugPrint('Hey Sorry! This clock only supports a 12 hour format');
     }
-    debugPrint('rebuilt');
     return Container(
         child: Row(
       children: <Widget>[
@@ -113,10 +121,85 @@ class _FibonacciClockState extends State<FibonacciClock> {
         ),
         LightBox(
           flex: 3,
+          child: Container(
+            padding: EdgeInsets.all(20.0),
+            child: DefaultTextStyle(
+              style: TextStyle(
+                // TODO: USE RESPONSIVE COLORS (White on white background won't display)
+                color: Colors.white,
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.w700,
+                // TODO: Use SCALABLE FONT SIZE BY WIDTH
+                fontSize: 25,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.location_on,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        _location,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  Icon(
+                    getWeatherIconData(_weatherCondition),
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                  Text(
+                    _temperature,
+                    style: TextStyle(fontSize: 60),
+                  ),
+                  Text(
+                    _condition,
+                  )
+                ],
+              ),
+            ),
+          ),
           gradientColors: box5GradientColors,
         ),
       ],
     ));
+  }
+
+  IconData getWeatherIconData(WeatherCondition weatherCondition) {
+    IconData icon;
+    switch (weatherCondition) {
+      case WeatherCondition.cloudy:
+        icon = Icons.wb_cloudy;
+        break;
+      case WeatherCondition.foggy:
+        icon = Icons.wb_cloudy;
+        break;
+      case WeatherCondition.rainy:
+        icon = Icons.wb_iridescent;
+        break;
+      case WeatherCondition.snowy:
+        icon = Icons.wb_cloudy;
+        break;
+      case WeatherCondition.sunny:
+        icon = Icons.wb_sunny;
+        break;
+      case WeatherCondition.thunderstorm:
+        icon = Icons.wb_cloudy;
+        break;
+      case WeatherCondition.windy:
+        icon = Icons.wb_cloudy;
+        break;
+      default:
+        icon = null;
+    }
+    return icon;
   }
 
   void generateLightBoxColors(int hour, int minute) {
@@ -222,22 +305,21 @@ class LightBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: flex,
-      child: child ??
-          Container(
-            decoration: BoxDecoration(
-              border:
-                  Border.all(width: 1.0, color: Colors.black.withOpacity(0.3)),
-              color: color,
-              gradient: gradientColors.length > 1
-                  ? RadialGradient(
-                      center: const Alignment(0.0, -0.0),
-                      radius: 1.0,
-                      colors: gradientColors,
-                      stops: <double>[0.0, 0.8, 1.0],
-                    )
-                  : null,
-            ),
-          ),
+      child: Container(
+        child: child,
+        decoration: BoxDecoration(
+          color: color,
+          border: Border.all(width: 1.0, color: Colors.black.withOpacity(0.3)),
+          gradient: gradientColors.length > 1
+              ? LinearGradient(
+                  begin: Alignment(-1.0, -1.0),
+                  end: Alignment(1.0, 1.0),
+                  colors: gradientColors,
+                  stops: <double>[0.1, 1.0],
+                )
+              : null,
+        ),
+      ),
     );
   }
 }
