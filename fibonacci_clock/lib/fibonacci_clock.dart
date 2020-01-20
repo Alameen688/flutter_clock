@@ -82,9 +82,10 @@ class _FibonacciClockState extends State<FibonacciClock> {
 
   @override
   Widget build(BuildContext context) {
-    final baseFontSize = MediaQuery.of(context).size.width / 12;
-    final subtitleFontSize = baseFontSize / 2 > 20 ? baseFontSize / 2 : 20;
-    final bodyFontSize = baseFontSize / 3.5 > 16 ? baseFontSize / 3.5 : 16;
+    final baseFontSize = MediaQuery.of(context).size.width / 12.0;
+    final subtitleFontSize =
+        baseFontSize / 2.0 > 20.0 ? baseFontSize / 2.0 : 20.0;
+    final bodyFontSize = baseFontSize / 3.5 > 16.0 ? baseFontSize / 3.5 : 16.0;
     final textColor = box5GradientColors != fibColors.emptyGradientColors
         ? Colors.white
         : Color(0xFF3C4043);
