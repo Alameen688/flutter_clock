@@ -1,19 +1,19 @@
-import 'package:flutter/material.dart' show Colors, Color;
+import 'package:flutter/material.dart' show Color;
 
 final blueGradientColors = [
-  Colors.blue.shade200,
-  Colors.blue.shade400,
+  Color(0xFF36D1DC),
+  Color(0xFF5B86E5),
 ];
 final greenGradientColors = [
-  Colors.green.shade200,
-  Colors.green.shade400,
+  Color(0xFF1D976C),
+  Color(0xFF93F9B9),
 ];
 final redGradientColors = [
-  Colors.red.shade100,
-  Colors.red.shade400,
+  Color(0xFFB24592),
+  Color(0xFFF15F79),
 ];
 
 final emptyGradientColors = [
-  Colors.white,
-  Colors.grey.shade100,
+  Color(0xFFECE9E6),
+  Color(0xFFFFFFFF),
 ];
