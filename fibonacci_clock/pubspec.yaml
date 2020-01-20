@@ -19,8 +19,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
   assets:
     - assets/streamline_icons/
+
   fonts:
     - family: Montserrat
       fonts:

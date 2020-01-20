@@ -16,7 +16,7 @@ class FibonacciClock extends StatefulWidget {
 
 class _FibonacciClockState extends State<FibonacciClock> {
   DateTime _dateTime = DateTime.now();
-  WeatherCondition _weatherCondition;
+  String _weatherIconAsset = 'assets/streamline_icons/weather.png';
   String _temperature = '';
   String _condition = '';
   String _location = '';
@@ -70,10 +70,11 @@ class _FibonacciClockState extends State<FibonacciClock> {
   }
 
   void _updateModel() {
+    final weatherIconAsset = getWeatherIconAsset(widget.model.weatherCondition);
     setState(() {
       _temperature = widget.model.temperatureString;
       _condition = widget.model.weatherString;
-      _weatherCondition = widget.model.weatherCondition;
+      _weatherIconAsset = weatherIconAsset;
       _location = widget.model.location;
     });
   }
@@ -86,7 +87,7 @@ class _FibonacciClockState extends State<FibonacciClock> {
     final textColor = box5GradientColors != fibColors.emptyGradientColors
         ? Colors.white
         : Color(0xFF3C4043);
-    print(baseFontSize);
+
     if (widget.model.is24HourFormat) {
       // Would typically be a toast message
       debugPrint('Hey Sorry! The fibonacci clock is based on a 12-hour format');
@@ -159,18 +160,17 @@ class _FibonacciClockState extends State<FibonacciClock> {
                   Spacer(),
                   Container(
                     padding: EdgeInsets.only(bottom: 10.0),
-                    child: Icon(
-                      getWeatherIconData(_weatherCondition),
+                    child: ImageIcon(
+                      AssetImage(_weatherIconAsset),
                       color: textColor,
                       size: 40,
                     ),
                   ),
                   Text(
                     _temperature,
-                    // style: TextStyle(fontSize: baseFontS), //60
                   ),
                   Text(
-                    _condition, //25
+                    _condition,
                     style: TextStyle(fontSize: subtitleFontSize),
                   )
                 ],
@@ -183,34 +183,34 @@ class _FibonacciClockState extends State<FibonacciClock> {
     ));
   }
 
-  IconData getWeatherIconData(WeatherCondition weatherCondition) {
-    IconData icon;
+  String getWeatherIconAsset(WeatherCondition weatherCondition) {
+    String iconAsset;
     switch (weatherCondition) {
       case WeatherCondition.cloudy:
-        icon = Icons.wb_cloudy;
+        iconAsset = 'assets/streamline_icons/cloudy.png';
         break;
       case WeatherCondition.foggy:
-        icon = Icons.wb_cloudy;
+        iconAsset = 'assets/streamline_icons/foggy.png';
         break;
       case WeatherCondition.rainy:
-        icon = Icons.wb_iridescent;
+        iconAsset = 'assets/streamline_icons/rainy.png';
         break;
       case WeatherCondition.snowy:
-        icon = Icons.wb_cloudy;
+        iconAsset = 'assets/streamline_icons/snowy.png';
         break;
       case WeatherCondition.sunny:
-        icon = Icons.wb_sunny;
+        iconAsset = 'assets/streamline_icons/sunny.png';
         break;
       case WeatherCondition.thunderstorm:
-        icon = Icons.wb_cloudy;
+        iconAsset = 'assets/streamline_icons/thunderstorm.png';
         break;
       case WeatherCondition.windy:
-        icon = Icons.wb_cloudy;
+        iconAsset = 'assets/streamline_icons/windy.png';
         break;
       default:
-        icon = null;
+        iconAsset = 'assets/streamline_icons/weather.png';
     }
-    return icon;
+    return iconAsset;
   }
 
   void generateLightBoxColors(int hour, int minute) {
