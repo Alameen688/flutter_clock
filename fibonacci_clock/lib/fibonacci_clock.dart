@@ -72,7 +72,6 @@ class _FibonacciClockState extends State<FibonacciClock> {
   void _updateModel() {
     final weatherIconAsset = getWeatherIconAsset(widget.model.weatherCondition);
     final condition = capitalizeFirstLetter(widget.model.weatherString);
-    print(condition);
     setState(() {
       _condition = condition;
       _weatherIconAsset = weatherIconAsset;

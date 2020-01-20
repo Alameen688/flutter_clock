@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 import 'fibonacci_clock.dart';
 
+// THIS IS BASED OFF OF THE DIGITAL CLOCK STARTER CODE
 void main() {
   // A temporary measure until Platform supports web and TargetPlatform supports
   // macOS.
