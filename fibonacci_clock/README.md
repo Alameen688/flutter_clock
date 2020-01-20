@@ -31,6 +31,10 @@ Ogundiran Al-Ameen
 
 Under [MIT license](/LICENSE).
 
+## Credits
+
+This clock is inspired by Philippe Chrétien who created an arduino powered hardware Fibonacci clock in 2005
+
 ## Getting Started
 
 For help getting started with Flutter, view the
