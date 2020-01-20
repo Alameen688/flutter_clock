@@ -71,10 +71,12 @@ class _FibonacciClockState extends State<FibonacciClock> {
 
   void _updateModel() {
     final weatherIconAsset = getWeatherIconAsset(widget.model.weatherCondition);
+    final condition = capitalizeFirstLetter(widget.model.weatherString);
+    print(condition);
     setState(() {
-      _temperature = widget.model.temperatureString;
-      _condition = widget.model.weatherString;
+      _condition = condition;
       _weatherIconAsset = weatherIconAsset;
+      _temperature = widget.model.temperatureString;
       _location = widget.model.location;
     });
   }
@@ -182,6 +184,9 @@ class _FibonacciClockState extends State<FibonacciClock> {
       ],
     ));
   }
+
+  String capitalizeFirstLetter(String s) =>
+      (s?.isNotEmpty ?? false) ? s[0].toUpperCase() + s.substring(1) : s;
 
   String getWeatherIconAsset(WeatherCondition weatherCondition) {
     String iconAsset;
