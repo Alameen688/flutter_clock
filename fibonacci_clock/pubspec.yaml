@@ -19,9 +19,11 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/streamline_icons/
   fonts:
     - family: Montserrat
       fonts:
-        - asset: google_fonts/Montserrat-Regular.ttf
-        - asset: google_fonts/Montserrat-Bold.ttf
+        - asset: assets/google_fonts/Montserrat-Regular.ttf
+        - asset: assets/google_fonts/Montserrat-Bold.ttf
           weight: 700
