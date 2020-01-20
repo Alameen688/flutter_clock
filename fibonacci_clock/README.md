@@ -19,7 +19,11 @@ To tell time, you need to do some maths :)
 - To read the number of minutes, add up the corresponding values of all Green and Blue squares. (PS: The Clock could also display Green only or Blue only depending on the time). Go ahead and multiply the sum of those values by 5 to get the actual minute value.
 - BONUS: Weather information is displayed on the largest square (The square of value: 5).
 
-
+|   |   |   |
+|---|---|---|
+| ![Four Twenty 04:20](https://res.cloudinary.com/mentos/flutter-clock/4-20_sunny.png) 4:20 | ![Two Fifty-Five 02:55](https://res.cloudinary.com/mentos/flutter-clock/2-55_sunny.png) 2:55 | ![Three O' clock 03:00](https://res.cloudinary.com/mentos/flutter-clock/3-00_sunny.png) 3:00 |
+|   |   |   |
+|   |   |   |
 
 NB: The clock uses a 12-hour format whose minutes are displayed in 5 minutes increment. Which means the 3:15 and 3:20 are displayable time but at a time in-between such as 3:16, 3:17, 3:18, 3:19 the clock would remain at 3:15.
 
