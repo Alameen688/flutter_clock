@@ -16,7 +16,7 @@ class FibonacciClock extends StatefulWidget {
 
 class _FibonacciClockState extends State<FibonacciClock> {
   DateTime _dateTime = DateTime.now();
-  WeatherCondition _weatherCondition; //TODO Change from string
+  WeatherCondition _weatherCondition;
   String _temperature = '';
   String _condition = '';
   String _location = '';
@@ -80,8 +80,16 @@ class _FibonacciClockState extends State<FibonacciClock> {
 
   @override
   Widget build(BuildContext context) {
+    final baseFontSize = MediaQuery.of(context).size.width / 12;
+    final subtitleFontSize = baseFontSize / 2 > 20 ? baseFontSize / 2 : 20;
+    final bodyFontSize = baseFontSize / 3.5 > 16 ? baseFontSize / 3.5 : 16;
+    final textColor = box5GradientColors != fibColors.emptyGradientColors
+        ? Colors.white
+        : Color(0xFF3C4043);
+    print(baseFontSize);
     if (widget.model.is24HourFormat) {
-      debugPrint('Hey Sorry! This clock only supports a 12 hour format');
+      // Would typically be a toast message
+      debugPrint('Hey Sorry! The fibonacci clock is based on a 12-hour format');
     }
     return Container(
         child: Row(
@@ -125,12 +133,10 @@ class _FibonacciClockState extends State<FibonacciClock> {
             padding: EdgeInsets.all(20.0),
             child: DefaultTextStyle(
               style: TextStyle(
-                // TODO: USE RESPONSIVE COLORS (White on white background won't display)
-                color: Colors.white,
+                color: textColor,
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.w700,
-                // TODO: Use SCALABLE FONT SIZE BY WIDTH
-                fontSize: 25,
+                fontSize: baseFontSize,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -140,27 +146,32 @@ class _FibonacciClockState extends State<FibonacciClock> {
                     children: <Widget>[
                       Icon(
                         Icons.location_on,
-                        color: Colors.white,
+                        color: textColor,
                       ),
                       Text(
                         _location,
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
+                            fontSize: bodyFontSize,
+                            fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
                   Spacer(),
-                  Icon(
-                    getWeatherIconData(_weatherCondition),
-                    color: Colors.white,
-                    size: 40,
+                  Container(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    child: Icon(
+                      getWeatherIconData(_weatherCondition),
+                      color: textColor,
+                      size: 40,
+                    ),
                   ),
                   Text(
                     _temperature,
-                    style: TextStyle(fontSize: 60),
+                    // style: TextStyle(fontSize: baseFontS), //60
                   ),
                   Text(
-                    _condition,
+                    _condition, //25
+                    style: TextStyle(fontSize: subtitleFontSize),
                   )
                 ],
               ),
@@ -309,11 +320,11 @@ class LightBox extends StatelessWidget {
         child: child,
         decoration: BoxDecoration(
           color: color,
-          border: Border.all(width: 1.0, color: Colors.black.withOpacity(0.3)),
+          border: Border.all(width: 1.0, color: Colors.black.withOpacity(0.4)),
           gradient: gradientColors.length > 1
               ? LinearGradient(
                   begin: Alignment(-1.0, -1.0),
-                  end: Alignment(1.0, 1.0),
+                  end: Alignment(1.0, 0.2),
                   colors: gradientColors,
                   stops: <double>[0.1, 1.0],
                 )
