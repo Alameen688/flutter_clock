@@ -39,7 +39,7 @@ Under [MIT license](/fibonacci_clock/LICENSE).
 - Montserrat Font by Google Fonts (OFL license)
 - Streamline icons by [Streamlineicons.com](https://app.streamlineicons.com/streamline-regular)
 
-This clock is inspired by Philippe Chrétien who created [an open source arduino powered hardware Fibonacci clock in 2005](https://www.kickstarter.com/projects/basbrun/fibonacci-clock-an-open-source-clock-for-nerds-wit)
+This clock is inspired by Philippe Chrétien who created [an open source arduino powered hardware Fibonacci clock in 2015](https://www.kickstarter.com/projects/basbrun/fibonacci-clock-an-open-source-clock-for-nerds-wit)
 
 ## Getting Started
 
