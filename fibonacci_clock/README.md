@@ -23,7 +23,6 @@ To tell time, you need to do some maths :)
 |---|---|---|
 | ![Four Twenty 04:20](https://res.cloudinary.com/mentos/flutter-clock/4-20_sunny.png) 4:20 | ![Two Fifty-Five 02:55](https://res.cloudinary.com/mentos/flutter-clock/2-55_sunny.png) 2:55 | ![Three O' clock 03:00](https://res.cloudinary.com/mentos/flutter-clock/3-00_sunny.png) 3:00 |
 |   |   |   |
-|   |   |   |
 
 NB: The clock uses a 12-hour format whose minutes are displayed in 5 minutes increment. Which means the 3:15 and 3:20 are displayable time but at a time in-between such as 3:16, 3:17, 3:18, 3:19 the clock would remain at 3:15.
 
@@ -33,11 +32,14 @@ Ogundiran Al-Ameen
 
 ## License
 
-Under [MIT license](/LICENSE).
+Under [MIT license](/fibonacci_clock/LICENSE).
 
 ## Credits
 
-This clock is inspired by Philippe Chrétien who created an arduino powered hardware Fibonacci clock in 2005
+- Montserrat Font by Google Fonts (OFL license)
+- Streamline icons by [Streamlineicons.com](https://app.streamlineicons.com/streamline-regular)
+
+This clock is inspired by Philippe Chrétien who created [an open source arduino powered hardware Fibonacci clock in 2005](https://www.kickstarter.com/projects/basbrun/fibonacci-clock-an-open-source-clock-for-nerds-wit)
 
 ## Getting Started
 
