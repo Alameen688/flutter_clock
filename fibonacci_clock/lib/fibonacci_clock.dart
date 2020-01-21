@@ -90,10 +90,6 @@ class _FibonacciClockState extends State<FibonacciClock> {
         ? Colors.white
         : Color(0xFF3C4043);
 
-    if (widget.model.is24HourFormat) {
-      // Would typically be a toast message
-      debugPrint('Hey Sorry! The fibonacci clock is based on a 12-hour format');
-    }
     return Container(
         child: Row(
       children: <Widget>[
