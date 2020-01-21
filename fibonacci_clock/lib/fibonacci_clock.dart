@@ -317,7 +317,7 @@ class LightBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: flex,
-      child: Container(
+      child: AnimatedContainer(
         child: child,
         decoration: BoxDecoration(
           color: color,
@@ -331,6 +331,7 @@ class LightBox extends StatelessWidget {
                 )
               : null,
         ),
+        duration: Duration(milliseconds: 500),
       ),
     );
   }
